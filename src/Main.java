@@ -25,6 +25,7 @@ public class Main extends JFrame {
 	private JTextField ValeurdeP;
 
 	/**
+	 * TESTGITasiednaoidnasdinuoasdoasdina
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
