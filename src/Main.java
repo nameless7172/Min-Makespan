@@ -27,6 +27,8 @@ public class Main extends JFrame {
 	/**
 	 * TESTGITasiednaoidnasdinuoasdoasdina
 	 * Launch the application.
+	 * 
+	 *testgit 4
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
