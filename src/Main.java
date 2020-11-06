@@ -13,15 +13,16 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JRadioButton;
 
 public class Main extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtTempsLsa;
-	private JTextField txtTempsRma;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField Valeurdmax;
+	private JTextField Valeurdmin;
+	private JTextField Valeurm;
+	private JTextField Valeurn;
+	private JTextField Valeurk;
 	private JTextField ValeurdeP;
 
 	/**
@@ -61,67 +62,67 @@ public class Main extends JFrame {
 		tabbedPane.addTab("Entries", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		txtTempsLsa = new JTextField();
-		txtTempsLsa.setText("0");
-		txtTempsLsa.setToolTipText("");
-		txtTempsLsa.setBounds(297, 168, 86, 20);
-		panel_1.add(txtTempsLsa);
-		txtTempsLsa.setColumns(10);
+		Valeurdmax = new JTextField();
+		Valeurdmax.setText("");
+		Valeurdmax.setToolTipText("");
+		Valeurdmax.setBounds(297, 168, 86, 20);
+		panel_1.add(Valeurdmax);
+		Valeurdmax.setColumns(10);
 		
-		txtTempsRma = new JTextField();
-		txtTempsRma.setText("0");
-		txtTempsRma.setColumns(10);
-		txtTempsRma.setBounds(297, 137, 86, 20);
-		panel_1.add(txtTempsRma);
+		Valeurdmin = new JTextField();
+		Valeurdmin.setText("");
+		Valeurdmin.setColumns(10);
+		Valeurdmin.setBounds(297, 137, 86, 20);
+		panel_1.add(Valeurdmin);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("0");
-		textField_3.setColumns(10);
-		textField_3.setBounds(297, 44, 86, 20);
-		panel_1.add(textField_3);
+		Valeurm = new JTextField();
+		Valeurm.setText("");
+		Valeurm.setColumns(10);
+		Valeurm.setBounds(297, 44, 86, 20);
+		panel_1.add(Valeurm);
 		
-		textField_4 = new JTextField();
-		textField_4.setText("0");
-		textField_4.setColumns(10);
-		textField_4.setBounds(297, 75, 86, 20);
-		panel_1.add(textField_4);
+		Valeurn = new JTextField();
+		Valeurn.setText("");
+		Valeurn.setColumns(10);
+		Valeurn.setBounds(297, 75, 86, 20);
+		panel_1.add(Valeurn);
 		
-		textField_5 = new JTextField();
-		textField_5.setText("0");
-		textField_5.setColumns(10);
-		textField_5.setBounds(297, 106, 86, 20);
-		panel_1.add(textField_5);
+		Valeurk = new JTextField();
+		Valeurk.setText("");
+		Valeurk.setColumns(10);
+		Valeurk.setBounds(297, 106, 86, 20);
+		panel_1.add(Valeurk);
 		
 		JLabel lblNewLabel = new JLabel("m");
-		lblNewLabel.setBounds(63, 44, 92, 20);
+		lblNewLabel.setBounds(128, 44, 92, 20);
 		panel_1.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("n");
-		lblNewLabel_1.setBounds(63, 75, 92, 20);
+		lblNewLabel_1.setBounds(128, 75, 92, 20);
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("k");
-		lblNewLabel_2.setBounds(63, 106, 92, 20);
+		lblNewLabel_2.setBounds(128, 106, 92, 20);
 		panel_1.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("dmin");
-		lblNewLabel_3.setBounds(63, 137, 92, 20);
+		lblNewLabel_3.setBounds(128, 137, 92, 20);
 		panel_1.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("dmax");
-		lblNewLabel_4.setBounds(63, 168, 92, 20);
+		lblNewLabel_4.setBounds(128, 168, 92, 20);
 		panel_1.add(lblNewLabel_4);
 		
 	
 		ValeurdeP = new JTextField();
 		ValeurdeP.setToolTipText("");
-		ValeurdeP.setText("0");
+		ValeurdeP.setText("");
 		ValeurdeP.setColumns(10);
 		ValeurdeP.setBounds(297, 316, 86, 20);
 		panel_1.add(ValeurdeP);
 		
 		JLabel lblNewLabel_4_1 = new JLabel("p");
-		lblNewLabel_4_1.setBounds(63, 316, 92, 20);
+		lblNewLabel_4_1.setBounds(128, 316, 92, 20);
 		panel_1.add(lblNewLabel_4_1);
 
 		JPanel panel = new JPanel();
@@ -182,6 +183,34 @@ public class Main extends JFrame {
 		
 		btnNewButton.setBounds(156, 354, 147, 23);
 		panel_1.add(btnNewButton);
+		
+		JLabel lblNewLabel_5 = new JLabel("Please choose the mode before generating results ");
+		lblNewLabel_5.setBounds(42, 11, 412, 14);
+		panel_1.add(lblNewLabel_5);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("random instance");
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ValeurdeP.setEditable(false);
+				
+			}
+		});
+		rdbtnNewRadioButton.setBounds(6, 105, 116, 39);
+		panel_1.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Instance \"2p\"");
+		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Valeurm.setEditable(false);
+				Valeurk.setEditable(false);
+				Valeurn.setEditable(false);
+				Valeurdmin.setEditable(false);
+				Valeurdmax.setEditable(false);
+				
+			}
+		});
+		rdbtnNewRadioButton_1.setBounds(6, 315, 111, 23);
+		panel_1.add(rdbtnNewRadioButton_1);
 		
 
 		
