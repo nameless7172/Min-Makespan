@@ -11,10 +11,12 @@ import java.awt.Panel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JRadioButton;
-
+import java.util.Random;
 public class Main extends JFrame {
 
 	private JPanel contentPane;
@@ -133,7 +135,7 @@ public class Main extends JFrame {
 		lblNewLabel_3_1_3.setBounds(65, 234, 92, 20);
 		panel.add(lblNewLabel_3_1_3);
 		
-		JLabel lblNewLabel_3_1_1 = new JLabel("Lower bound ''minimum''");
+		JLabel lblNewLabel_3_1_1 = new JLabel("Lower bound ''average''");
 		lblNewLabel_3_1_1.setBounds(65, 52, 144, 20);
 		panel.add(lblNewLabel_3_1_1);
 		
@@ -203,30 +205,90 @@ public class Main extends JFrame {
 		lblNewLabel_5.setBounds(42, 11, 412, 14);
 		panel_1.add(lblNewLabel_5);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("random instance");
-		rdbtnNewRadioButton.setBounds(6, 105, 116, 39);
-		panel_1.add(rdbtnNewRadioButton);
+		JRadioButton Mode1 = new JRadioButton("random instance");
+		Mode1.setBounds(6, 105, 116, 39);
+		panel_1.add(Mode1);
+		JRadioButton Mode2 = new JRadioButton("Instance \"2p\"");
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Instance \"2p\"");
+		// Radio bouton selection
 		
-		
-		
+		Mode1.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e) {
+				ValeurdeP.setEnabled(false);
+				Mode2.setSelected(false);
+				Valeurm.setEnabled(true);
+				Valeurdmax.setEnabled(true);
+				Valeurdmin.setEnabled(true);
+				Valeurk.setEnabled(true);
+				Valeurn.setEnabled(true);		
+			}
+			
+			
+			
+		});
+		Mode2.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e) {
+				ValeurdeP.setEnabled(true);
+				Mode1.setSelected(false);
+				Valeurm.setEnabled(false);
+				Valeurdmax.setEnabled(false);
+				Valeurdmin.setEnabled(false);
+				Valeurk.setEnabled(false);
+				Valeurn.setEnabled(false);
+			}
+			
+		});
 		// algorithmes du projet
 		
 		JButton btnNewButton = new JButton("Generate results");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
-			
+				
+				
+				int j ;
 				
 				int p = Integer.parseInt(ValeurdeP.getText());
-				
+				int nbmachine = 2*p;
 				if (p<=0) {Errorp0.setVisible(true);}
-				
+				// algo LPT
 				int tempLPT = (((4*p+2*p*(p-1)*2+2*p))/(2*p));
 				ValueLPTresult.setText(String.valueOf(tempLPT));
+				
+				//algo LSA
 				int tempLSA = 4*p;
 				ValueLSAresult.setText(String.valueOf(tempLSA));
+				
+				//algo RMA
+				ArrayList<Integer> listeMachine = new ArrayList<Integer>();
+				for(int i =0; i<nbmachine; i++) {
+					listeMachine.add(0);
+				}
+				//repartition tache 1
+				Random random = new Random();
+				for(int i =0; i<4*p; i++) {
+					j = random.nextInt(nbmachine);
+					Integer tempValeurMachine = listeMachine.get(j);
+					tempValeurMachine +=  1;
+					listeMachine.set(j , tempValeurMachine);
+					
+				}
+				System.out.println(listeMachine);
+				for(int i =0; i<2*p *(p-1); i++) {
+					j = random.nextInt(nbmachine);
+					Integer tempValeurMachine = listeMachine.get(j);
+					tempValeurMachine +=  2;
+					listeMachine.set(j , tempValeurMachine);
+				
+				}
+				System.out.println(listeMachine);
+				j = random.nextInt(nbmachine);
+				Integer tempValeurMachine = listeMachine.get(j);
+				tempValeurMachine +=  2*p;
+				listeMachine.set(j , tempValeurMachine);
+				System.out.println(listeMachine);
+				ValueRMAresult.setText(String.valueOf(Collections.max(listeMachine)));
 			}
 		});
 		
@@ -235,12 +297,12 @@ public class Main extends JFrame {
 		btnNewButton.setBounds(156, 354, 147, 23);
 		panel_1.add(btnNewButton);
 	
-		rdbtnNewRadioButton_1.setBounds(6, 315, 111, 23);
-		panel_1.add(rdbtnNewRadioButton_1);
+		Mode2.setBounds(6, 315, 111, 23);
+		panel_1.add(Mode2);
 		
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+		Mode1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if ((rdbtnNewRadioButton.getModel().isPressed())&&(!(rdbtnNewRadioButton_1.getModel().isPressed()))) {
+				if ((Mode1.getModel().isPressed())&&(!(Mode2.getModel().isPressed()))) {
 					ValeurdeP.setEditable(false);
 				}
 			}
