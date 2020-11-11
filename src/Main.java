@@ -303,7 +303,8 @@ public class Main extends JFrame {
 		Mode1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if ((Mode1.getModel().isPressed())&&(!(Mode2.getModel().isPressed()))) {
-					ValeurdeP.setEditable(false);
+					
+					ValeurdeP.setEditable(false); 
 				}
 			}
 		});
