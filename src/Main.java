@@ -198,7 +198,18 @@ public class Main extends JFrame {
 		Errorp0.setVisible(false);
 		Errorp0.setBounds(406, 319, 62, 14);
 		panel_1.add(Errorp0);
-	
+		
+		JLabel lblNewLabel_5 = new JLabel("Please choose the mode before generating results ");
+		lblNewLabel_5.setBounds(42, 11, 412, 14);
+		panel_1.add(lblNewLabel_5);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("random instance");
+		rdbtnNewRadioButton.setBounds(6, 105, 116, 39);
+		panel_1.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Instance \"2p\"");
+		
+		
 		
 		// algorithmes du projet
 		
@@ -218,33 +229,17 @@ public class Main extends JFrame {
 				ValueLSAresult.setText(String.valueOf(tempLSA));
 			}
 		});
+	
 		
 		
 		
-		btnNewButton.setBounds(156, 354, 147, 23);
-		panel_1.add(btnNewButton);
-		
-		JLabel lblNewLabel_5 = new JLabel("Please choose the mode before generating results ");
-		lblNewLabel_5.setBounds(42, 11, 412, 14);
-		panel_1.add(lblNewLabel_5);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("random instance");
-		rdbtnNewRadioButton.setBounds(6, 105, 116, 39);
-		panel_1.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Instance \"2p\"");
 		
 		
-		rdbtnNewRadioButton_1.setBounds(6, 315, 111, 23);
-		panel_1.add(rdbtnNewRadioButton_1);
 		
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if ((rdbtnNewRadioButton.getModel().isPressed())&&(!(rdbtnNewRadioButton_1.getModel().isPressed()))) {
-					ValeurdeP.setEditable(false);
-				}
-			}
-		});
+		
+		
+		//______________________________________________________________________
+	
 	
 	
 	
