@@ -20,8 +20,8 @@ import java.util.Random;
 public class Main extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField Valeurdmax;
-	private JTextField Valeurdmin;
+	private JTextField Valuedmax;
+	private JTextField Valuedmin;
 	private JTextField Valeurm;
 	private JTextField Valeurn;
 	private JTextField Valeurk;
@@ -64,18 +64,18 @@ public class Main extends JFrame {
 		tabbedPane.addTab("Entries", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		Valeurdmax = new JTextField();
-		Valeurdmax.setText("");
-		Valeurdmax.setToolTipText("");
-		Valeurdmax.setBounds(297, 168, 86, 20);
-		panel_1.add(Valeurdmax);
-		Valeurdmax.setColumns(10);
+		Valuedmax = new JTextField();
+		Valuedmax.setText("");
+		Valuedmax.setToolTipText("");
+		Valuedmax.setBounds(297, 168, 86, 20);
+		panel_1.add(Valuedmax);
+		Valuedmax.setColumns(10);
 		
-		Valeurdmin = new JTextField();
-		Valeurdmin.setText("");
-		Valeurdmin.setColumns(10);
-		Valeurdmin.setBounds(297, 137, 86, 20);
-		panel_1.add(Valeurdmin);
+		Valuedmin = new JTextField();
+		Valuedmin.setText("");
+		Valuedmin.setColumns(10);
+		Valuedmin.setBounds(297, 137, 86, 20);
+		panel_1.add(Valuedmin);
 		
 		Valeurm = new JTextField();
 		Valeurm.setText("");
@@ -183,13 +183,13 @@ public class Main extends JFrame {
 		ValueLPTratio.setBounds(247, 188, 92, 20);
 		panel.add(ValueLPTratio);
 		
-		JLabel ValeurLSAratio = new JLabel("?");
-		ValeurLSAratio.setBounds(247, 137, 92, 20);
-		panel.add(ValeurLSAratio);
+		JLabel ValueLSAratio = new JLabel("?");
+		ValueLSAratio.setBounds(247, 137, 92, 20);
+		panel.add(ValueLSAratio);
 		
-		JLabel Valeurmini = new JLabel("?");
-		Valeurmini.setBounds(247, 55, 92, 20);
-		panel.add(Valeurmini);
+		JLabel Valeurmoy = new JLabel("?");
+		Valeurmoy.setBounds(247, 55, 92, 20);
+		panel.add(Valeurmoy);
 		
 		JLabel Valeurmaxi = new JLabel("?");
 		Valeurmaxi.setBounds(247, 30, 92, 20);
@@ -209,6 +209,8 @@ public class Main extends JFrame {
 		Mode1.setBounds(6, 105, 116, 39);
 		panel_1.add(Mode1);
 		JRadioButton Mode2 = new JRadioButton("Instance \"2p\"");
+		Mode2.setSelected(true);
+
 		
 		// Radio bouton selection
 		
@@ -218,10 +220,16 @@ public class Main extends JFrame {
 				ValeurdeP.setEnabled(false);
 				Mode2.setSelected(false);
 				Valeurm.setEnabled(true);
-				Valeurdmax.setEnabled(true);
-				Valeurdmin.setEnabled(true);
+				Valuedmax.setEnabled(true);
+				Valuedmin.setEnabled(true);
 				Valeurk.setEnabled(true);
-				Valeurn.setEnabled(true);		
+				Valeurn.setEnabled(true);	
+				lblNewLabel_3_3.setVisible(false);
+				lblNewLabel_3_1.setVisible(false);
+				lblNewLabel_3_2.setVisible(false);
+				ValueLSAresult.setVisible(false);
+				ValueLPTresult.setVisible(false);
+				ValueRMAresult.setVisible(false);
 			}
 			
 			
@@ -233,10 +241,17 @@ public class Main extends JFrame {
 				ValeurdeP.setEnabled(true);
 				Mode1.setSelected(false);
 				Valeurm.setEnabled(false);
-				Valeurdmax.setEnabled(false);
-				Valeurdmin.setEnabled(false);
+				Valuedmax.setEnabled(false);
+				Valuedmin.setEnabled(false);
 				Valeurk.setEnabled(false);
 				Valeurn.setEnabled(false);
+				lblNewLabel_3_3.setVisible(true);
+				lblNewLabel_3_1.setVisible(true);
+				lblNewLabel_3_2.setVisible(true);
+				ValueLSAresult.setVisible(true);
+				ValueLPTresult.setVisible(true);
+				ValueRMAresult.setVisible(true);
+				
 			}
 			
 		});
@@ -246,49 +261,87 @@ public class Main extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
-				int j ;
-				
-				int p = Integer.parseInt(ValeurdeP.getText());
-				int nbmachine = 2*p;
-				if (p<=0) {Errorp0.setVisible(true);}
-				// algo LPT
-				int tempLPT = (((4*p+2*p*(p-1)*2+2*p))/(2*p));
-				ValueLPTresult.setText(String.valueOf(tempLPT));
-				
-				//algo LSA
-				int tempLSA = 4*p;
-				ValueLSAresult.setText(String.valueOf(tempLSA));
-				
-				//algo RMA
-				ArrayList<Integer> listeMachine = new ArrayList<Integer>();
-				for(int i =0; i<nbmachine; i++) {
-					listeMachine.add(0);
-				}
-				//repartition tache 1
-				Random random = new Random();
-				for(int i =0; i<4*p; i++) {
-					j = random.nextInt(nbmachine);
-					Integer tempValeurMachine = listeMachine.get(j);
-					tempValeurMachine +=  1;
-					listeMachine.set(j , tempValeurMachine);
+				if(Mode2.isSelected() && !Mode1.isSelected()){
+					int j ;
+					int sommesTaches = 0;
+					int p = Integer.parseInt(ValeurdeP.getText());
+					int nbmachine = 2*p;
+					if (p<=0) {Errorp0.setVisible(true);}
+					// algo LPT
+					int tempLPT = (((4*p+2*p*(p-1)*2+2*p))/(2*p));
+					ValueLPTresult.setText(String.valueOf(tempLPT));
 					
-				}
-				System.out.println(listeMachine);
-				for(int i =0; i<2*p *(p-1); i++) {
+					//algo LSA
+					int tempLSA = 4*p;
+					ValueLSAresult.setText(String.valueOf(tempLSA));
+					
+					
+					
+					//algo RMA
+					ArrayList<Integer> listeMachine = new ArrayList<Integer>();
+					for(int i =0; i<nbmachine; i++) {
+						listeMachine.add(0);
+					}
+					//repartition tache 1
+					Random random = new Random();
+					for(int i =0; i<4*p; i++) {
+						j = random.nextInt(nbmachine);
+						Integer tempValeurMachine = listeMachine.get(j);
+						tempValeurMachine +=  1;
+						listeMachine.set(j , tempValeurMachine);
+						sommesTaches += 1 ;
+						
+					}
+					System.out.println(listeMachine);
+					for(int i =0; i<2*p *(p-1); i++) {
+						j = random.nextInt(nbmachine);
+						Integer tempValeurMachine = listeMachine.get(j);
+						tempValeurMachine +=  2;
+						listeMachine.set(j , tempValeurMachine);
+						sommesTaches += 2 ;
+					
+					}
+					
+					System.out.println(listeMachine);
 					j = random.nextInt(nbmachine);
 					Integer tempValeurMachine = listeMachine.get(j);
-					tempValeurMachine +=  2;
+					tempValeurMachine +=  2*p;
+					sommesTaches += 2*p ;
 					listeMachine.set(j , tempValeurMachine);
-				
+					System.out.println(listeMachine);
+					int valeurmoyenne = sommesTaches/nbmachine;
+					int valeurmax = 2*p;
+					double B = Math.max(valeurmoyenne,valeurmax);
+					ValueRMAresult.setText(String.valueOf(Collections.max(listeMachine)));
+					Valeurmoy.setText(String.valueOf(valeurmoyenne));
+					Valeurmaxi.setText(String.valueOf(valeurmax));
+					ValueRMAratio.setText(String.valueOf(Collections.max(listeMachine)/ B));
+					ValueLSAratio.setText(String.valueOf(tempLSA/B));
+					ValueLPTratio.setText(String.valueOf(tempLPT/B));
 				}
-				System.out.println(listeMachine);
-				j = random.nextInt(nbmachine);
-				Integer tempValeurMachine = listeMachine.get(j);
-				tempValeurMachine +=  2*p;
-				listeMachine.set(j , tempValeurMachine);
-				System.out.println(listeMachine);
-				ValueRMAresult.setText(String.valueOf(Collections.max(listeMachine)));
+				if(!Mode2.isSelected() && Mode1.isSelected()){		
+					
+					Integer m = Integer.parseInt(Valeurm.getText());
+					Integer n = Integer.parseInt(Valeurn.getText());
+					Integer k = Integer.parseInt(Valeurk.getText());
+					Integer dmin = Integer.parseInt(Valuedmin.getText());
+					Integer dmax = Integer.parseInt(Valuedmax.getText());
+					ArrayList<Integer> listeTaches = new ArrayList<Integer>();
+					ArrayList<ArrayList<Integer>> listeInstance = new ArrayList<ArrayList<Integer>>();
+					for(int i = 0 ; i < k ; i++) {
+						ArrayList<Integer> instance = new ArrayList<Integer>();
+						listeInstance.add(instance);
+						for(int j = 0 ; j < m ; j++ ) {
+							listeInstance.get(i).add(0);
+						}
+					}
+					for(int i = 0 ; i < n ; i ++) {
+//						listeTaches.add(random.nextInt(dmax-dmin)+dmin);
+						
+					}
+					System.out.println(listeInstance);
+				}
+				
 			}
 		});
 		
