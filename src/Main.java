@@ -229,17 +229,22 @@ public class Main extends JFrame {
 				ValueLSAresult.setText(String.valueOf(tempLSA));
 			}
 		});
+		
+		
+		
+		btnNewButton.setBounds(156, 354, 147, 23);
+		panel_1.add(btnNewButton);
 	
+		rdbtnNewRadioButton_1.setBounds(6, 315, 111, 23);
+		panel_1.add(rdbtnNewRadioButton_1);
 		
-		
-		
-		
-		
-		
-		
-		
-		//______________________________________________________________________
-	
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if ((rdbtnNewRadioButton.getModel().isPressed())&&(!(rdbtnNewRadioButton_1.getModel().isPressed()))) {
+					ValeurdeP.setEditable(false);
+				}
+			}
+		});
 	
 	
 	
