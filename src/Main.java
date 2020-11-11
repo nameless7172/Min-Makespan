@@ -129,29 +129,69 @@ public class Main extends JFrame {
 		tabbedPane.addTab("Results", null, panel, null);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("LSA");
+		JLabel lblNewLabel_3_1_3 = new JLabel("RMA ratio");
+		lblNewLabel_3_1_3.setBounds(65, 234, 92, 20);
+		panel.add(lblNewLabel_3_1_3);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("Lower bound ''minimum''");
+		lblNewLabel_3_1_1.setBounds(65, 52, 144, 20);
+		panel.add(lblNewLabel_3_1_1);
+		
+		JLabel lblNewLabel_3_1_5 = new JLabel("LSA ratio");
+		lblNewLabel_3_1_5.setBounds(65, 134, 92, 20);
+		panel.add(lblNewLabel_3_1_5);
+		
+		JLabel lblNewLabel_3_1_2 = new JLabel("Lower bound ''maximum''");
+		lblNewLabel_3_1_2.setBounds(65, 27, 144, 20);
+		panel.add(lblNewLabel_3_1_2);
+		
+		JLabel lblNewLabel_3_1_4 = new JLabel("LPT ratio");
+		lblNewLabel_3_1_4.setBounds(65, 185, 92, 20);
+		panel.add(lblNewLabel_3_1_4);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("LSA result");
 		lblNewLabel_3_1.setBounds(65, 114, 92, 20);
 		panel.add(lblNewLabel_3_1);
 		
-		JLabel lblNewLabel_3_2 = new JLabel("LPT");
+		JLabel lblNewLabel_3_2 = new JLabel("LPT result");
 		lblNewLabel_3_2.setBounds(65, 165, 92, 20);
 		panel.add(lblNewLabel_3_2);
 		
-		JLabel lblNewLabel_3_3 = new JLabel("RSA");
+		JLabel lblNewLabel_3_3 = new JLabel("RMA result");
 		lblNewLabel_3_3.setBounds(65, 216, 92, 20);
 		panel.add(lblNewLabel_3_3);
 		
-		JLabel ValeurLSA = new JLabel("?");
-		ValeurLSA.setBounds(247, 117, 92, 20);
-		panel.add(ValeurLSA);
+		JLabel ValueLSAresult = new JLabel("?");
+		ValueLSAresult.setBounds(247, 117, 92, 20);
+		panel.add(ValueLSAresult);
 		
-		JLabel ValeurLPT = new JLabel("?");
-		ValeurLPT.setBounds(247, 168, 92, 20);
-		panel.add(ValeurLPT);
+		JLabel ValueLPTresult = new JLabel("?");
+		ValueLPTresult.setBounds(247, 168, 92, 20);
+		panel.add(ValueLPTresult);
 		
-		JLabel ValeurRSA = new JLabel("?");
-		ValeurRSA.setBounds(247, 216, 92, 20);
-		panel.add(ValeurRSA);
+		JLabel ValueRMAresult = new JLabel("?");
+		ValueRMAresult.setBounds(247, 216, 92, 20);
+		panel.add(ValueRMAresult);
+		
+		JLabel ValueRMAratio = new JLabel("?");
+		ValueRMAratio.setBounds(247, 237, 92, 20);
+		panel.add(ValueRMAratio);
+		
+		JLabel ValueLPTratio = new JLabel("?");
+		ValueLPTratio.setBounds(247, 188, 92, 20);
+		panel.add(ValueLPTratio);
+		
+		JLabel ValeurLSAratio = new JLabel("?");
+		ValeurLSAratio.setBounds(247, 137, 92, 20);
+		panel.add(ValeurLSAratio);
+		
+		JLabel Valeurmini = new JLabel("?");
+		Valeurmini.setBounds(247, 55, 92, 20);
+		panel.add(Valeurmini);
+		
+		JLabel Valeurmaxi = new JLabel("?");
+		Valeurmaxi.setBounds(247, 30, 92, 20);
+		panel.add(Valeurmaxi);
 		
 		JLabel Errorp0 = new JLabel("Invalid value");
 		Errorp0.setForeground(Color.RED);
@@ -166,16 +206,16 @@ public class Main extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
-				// Si p est entree, il a la priorite.
+			
 				
 				int p = Integer.parseInt(ValeurdeP.getText());
 				
 				if (p<=0) {Errorp0.setVisible(true);}
 				
 				int tempLPT = (((4*p+2*p*(p-1)*2+2*p))/(2*p));
-				ValeurLPT.setText(String.valueOf(tempLPT));
+				ValueLPTresult.setText(String.valueOf(tempLPT));
 				int tempLSA = 4*p;
-				ValeurLSA.setText(String.valueOf(tempLSA));
+				ValueLSAresult.setText(String.valueOf(tempLSA));
 			}
 		});
 		
@@ -189,32 +229,25 @@ public class Main extends JFrame {
 		panel_1.add(lblNewLabel_5);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("random instance");
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ValeurdeP.setEditable(false);
-				
-			}
-		});
 		rdbtnNewRadioButton.setBounds(6, 105, 116, 39);
 		panel_1.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Instance \"2p\"");
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Valeurm.setEditable(false);
-				Valeurk.setEditable(false);
-				Valeurn.setEditable(false);
-				Valeurdmin.setEditable(false);
-				Valeurdmax.setEditable(false);
-				
-			}
-		});
+		
+		
 		rdbtnNewRadioButton_1.setBounds(6, 315, 111, 23);
 		panel_1.add(rdbtnNewRadioButton_1);
 		
-
-		
-		
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if ((rdbtnNewRadioButton.getModel().isPressed())&&(!(rdbtnNewRadioButton_1.getModel().isPressed()))) {
+					ValeurdeP.setEditable(false);
+				}
+			}
+		});
+	
+	
+	
 		
 		
 		
