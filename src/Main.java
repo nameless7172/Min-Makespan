@@ -18,7 +18,7 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import java.util.Random;
 public class Main extends JFrame {
-
+// On genere des taches aleatoire on on les repartie entre chaque machien d'une instance
 	private JPanel contentPane;
 	private JTextField Valuedmax;
 	private JTextField Valuedmin;
@@ -260,7 +260,7 @@ public class Main extends JFrame {
 		JButton btnNewButton = new JButton("Generate results");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Random random = new Random();
 				if(Mode2.isSelected() && !Mode1.isSelected()){
 					int j ;
 					int sommesTaches = 0;
@@ -283,7 +283,7 @@ public class Main extends JFrame {
 						listeMachine.add(0);
 					}
 					//repartition tache 1
-					Random random = new Random();
+					
 					for(int i =0; i<4*p; i++) {
 						j = random.nextInt(nbmachine);
 						Integer tempValeurMachine = listeMachine.get(j);
@@ -331,15 +331,15 @@ public class Main extends JFrame {
 					for(int i = 0 ; i < k ; i++) {
 						ArrayList<Integer> instance = new ArrayList<Integer>();
 						listeInstance.add(instance);
+//						for(int i = 0 ; i < n ; i ++) {
+//							listeTaches.add(random.nextInt(dmax-dmin)+dmin);
+//						}
 						for(int j = 0 ; j < m ; j++ ) {
 							listeInstance.get(i).add(0);
 						}
 					}
-					for(int i = 0 ; i < n ; i ++) {
-//						listeTaches.add(random.nextInt(dmax-dmin)+dmin);
-						
-					}
-					System.out.println(listeInstance);
+					
+					Collections.sort(listeTaches);
 				}
 				
 			}
