@@ -326,20 +326,26 @@ public class Main extends JFrame {
 					Integer k = Integer.parseInt(Valeurk.getText());
 					Integer dmin = Integer.parseInt(Valuedmin.getText());
 					Integer dmax = Integer.parseInt(Valuedmax.getText());
-					ArrayList<Integer> listeTaches = new ArrayList<Integer>();
 					ArrayList<ArrayList<Integer>> listeInstance = new ArrayList<ArrayList<Integer>>();
 					for(int i = 0 ; i < k ; i++) {
 						ArrayList<Integer> instance = new ArrayList<Integer>();
-						listeInstance.add(instance);
-//						for(int i = 0 ; i < n ; i ++) {
-//							listeTaches.add(random.nextInt(dmax-dmin)+dmin);
-//						}
-						for(int j = 0 ; j < m ; j++ ) {
-							listeInstance.get(i).add(0);
+						ArrayList<Integer> listeTaches = new ArrayList<Integer>();
+						for(int j = 0 ; j < n ; j ++) {
+							listeTaches.add(random.nextInt(dmax-dmin)+dmin);
 						}
+						for(int j = 0 ; j < m ; j++ ) {
+							instance.add(0);
+						}
+						for(int dureeTache : listeTaches) {
+							int index = instance.indexOf(Collections.min(instance));
+							int duree = instance.get(index);
+							duree += dureeTache;
+							instance.set(index, duree);
+						}
+						listeInstance.add(instance);
 					}
+					System.out.println(listeInstance);
 					
-					Collections.sort(listeTaches);
 				}
 				
 			}
