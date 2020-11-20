@@ -320,7 +320,6 @@ public class Main extends JFrame {
 					ValueLPTratio.setText(String.valueOf(tempLPT/B));
 				}
 				if(!Mode2.isSelected() && Mode1.isSelected()){		
-					
 					Integer m = Integer.parseInt(Valeurm.getText());
 					Integer n = Integer.parseInt(Valeurn.getText());
 					Integer k = Integer.parseInt(Valeurk.getText());
@@ -328,70 +327,99 @@ public class Main extends JFrame {
 					Integer dmax = Integer.parseInt(Valuedmax.getText());
 					ArrayList<ArrayList<Integer>> listeInstanceLSA = new ArrayList<ArrayList<Integer>>();
 					ArrayList<ArrayList<Integer>> listeInstanceLPT = new ArrayList<ArrayList<Integer>>();
+					ArrayList<ArrayList<Integer>> listeInstanceRMA = new ArrayList<ArrayList<Integer>>();
+
 					ArrayList<Double> listeRatioLSA = new ArrayList<Double>();
 					ArrayList<Double> listeRatioLPT = new ArrayList<Double>();
+					ArrayList<Double> listeRatioRMA = new ArrayList<Double>();
+
 					double B ;
 					double valeurmoyenneLSA;
-					double valeurmaxLSA;
 					double valeurmoyenneLPT;
+					double valeurmoyenneRMA;
+					
+					double valeurmaxLSA;
 					double valeurmaxLPT;
+					double valeurmaxRMA;
+					
 					double dureetachetotalLSA;
 					double dureetachetotalLPT;
+					double dureetachetotalRMA;
+
 					for(int i = 0 ; i < k ; i++) {
 						dureetachetotalLSA = 0 ;
 						dureetachetotalLPT = 0 ;
+						dureetachetotalRMA = 0 ;
 
 						ArrayList<Integer> instanceLPT = new ArrayList<Integer>();
 						ArrayList<Integer> instanceLSA = new ArrayList<Integer>();
+						ArrayList<Integer> instanceRMA = new ArrayList<Integer>();
+
 						ArrayList<Integer> listeTachesLSA = new ArrayList<Integer>();
 						ArrayList<Integer> listeTachesLPT = new ArrayList<Integer>();
+						ArrayList<Integer> listeTachesRMA = new ArrayList<Integer>();
 
 						//creation de la liste de tache
 						for(int j = 0 ; j < n ; j ++) {
 							int rand = random.nextInt(dmax-dmin)+dmin ;
 							listeTachesLSA.add(rand);
 							listeTachesLPT.add(rand);
+							listeTachesRMA.add(rand);
+
 						}
 						Collections.sort(listeTachesLPT, Collections.reverseOrder());
 						// ajout des machines au sein de l'instance
 						for(int j = 0 ; j < m ; j++ ) {
 							instanceLSA.add(0);
 							instanceLPT.add(0);
+							instanceRMA.add(0);
+
 						}
 						// On place en utilisant le modele LSA
 						for(int j = 0; j < listeTachesLSA.size(); j++) {
+							
 							int indexLSA = instanceLSA.indexOf(Collections.min(instanceLSA));
 							int indexLPT = instanceLPT.indexOf(Collections.min(instanceLPT));
+							int indexRMA = random.nextInt(instanceRMA.size());
+							
 							int dureeLSA = instanceLSA.get(indexLSA);
 							int dureeLPT = instanceLPT.get(indexLPT);
+							int dureeRMA = instanceRMA.get(indexRMA);
+							
 							dureeLSA += listeTachesLSA.get(j);
 							dureeLPT += listeTachesLPT.get(j);
+							dureeRMA += listeTachesRMA.get(j);
+							
 							instanceLPT.set(indexLPT, dureeLPT);
 							instanceLSA.set(indexLSA, dureeLSA);
+							instanceRMA.set(indexRMA, dureeRMA);
+							
 							dureetachetotalLSA += listeTachesLSA.get(j);
 							dureetachetotalLPT += listeTachesLPT.get(j);
+							dureetachetotalRMA += listeTachesRMA.get(j);
 
 						}
 					
 						valeurmoyenneLPT = dureetachetotalLPT/instanceLPT.size();
 						valeurmoyenneLSA = dureetachetotalLSA/instanceLSA.size();
+						valeurmoyenneRMA = dureetachetotalRMA/instanceRMA.size();
+
 						valeurmaxLPT = Collections.max(listeTachesLPT);
 						valeurmaxLSA = Collections.max(listeTachesLSA);
+						valeurmaxRMA = Collections.max(listeTachesLSA);
+
 						B = Math.max(valeurmoyenneLSA,valeurmaxLSA);
 						listeRatioLSA.add(Collections.max(instanceLSA)/B);
 						B=  Math.max(valeurmoyenneLPT,valeurmaxLPT);
 						listeRatioLPT.add(Collections.max(instanceLPT)/B);
+						B=  Math.max(valeurmoyenneRMA,valeurmaxRMA);
+						listeRatioRMA.add(Collections.max(instanceRMA)/B);
+						
 						listeInstanceLSA.add(instanceLSA);
 						listeInstanceLPT.add(instanceLPT);
+						listeInstanceRMA.add(instanceRMA);
 
 					}
-					
-					
-					
-					
-					
-					
-					
 					
 					for(double ratio : listeRatioLPT) {
 						
@@ -399,10 +427,12 @@ public class Main extends JFrame {
 					for(double ratio : listeRatioLSA) {
 						
 					}
-					System.out.println(listeInstanceLSA);
-					System.out.println(listeRatioLSA);
-					System.out.println(listeInstanceLPT);
-					System.out.println(listeRatioLPT);
+					System.out.println("listeInstanceLSA" + listeInstanceLSA);
+					System.out.println("listeRatioLSA" +listeRatioLSA);
+					System.out.println("listeInstanceLPT" +listeInstanceLPT);
+					System.out.println("listeRatioLPT" +listeRatioLPT);
+					System.out.println("listeInstanceRMA" +listeInstanceRMA);
+					System.out.println("listeRatioRMA" +listeRatioRMA);
 					
 				}
 				
