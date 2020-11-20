@@ -309,7 +309,7 @@ public class Main extends JFrame {
 					sommesTaches += 2*p ;
 					listeMachine.set(j , tempValeurMachine);
 					System.out.println(listeMachine);
-					int valeurmoyenne = sommesTaches/nbmachine;
+					double valeurmoyenne = sommesTaches/nbmachine;
 					int valeurmax = 2*p;
 					double B = Math.max(valeurmoyenne,valeurmax);
 					ValueRMAresult.setText(String.valueOf(Collections.max(listeMachine)));
@@ -326,25 +326,83 @@ public class Main extends JFrame {
 					Integer k = Integer.parseInt(Valeurk.getText());
 					Integer dmin = Integer.parseInt(Valuedmin.getText());
 					Integer dmax = Integer.parseInt(Valuedmax.getText());
-					ArrayList<ArrayList<Integer>> listeInstance = new ArrayList<ArrayList<Integer>>();
+					ArrayList<ArrayList<Integer>> listeInstanceLSA = new ArrayList<ArrayList<Integer>>();
+					ArrayList<ArrayList<Integer>> listeInstanceLPT = new ArrayList<ArrayList<Integer>>();
+					ArrayList<Double> listeRatioLSA = new ArrayList<Double>();
+					ArrayList<Double> listeRatioLPT = new ArrayList<Double>();
+					double B ;
+					double valeurmoyenneLSA;
+					double valeurmaxLSA;
+					double valeurmoyenneLPT;
+					double valeurmaxLPT;
+					double dureetachetotalLSA;
+					double dureetachetotalLPT;
 					for(int i = 0 ; i < k ; i++) {
-						ArrayList<Integer> instance = new ArrayList<Integer>();
-						ArrayList<Integer> listeTaches = new ArrayList<Integer>();
+						dureetachetotalLSA = 0 ;
+						dureetachetotalLPT = 0 ;
+
+						ArrayList<Integer> instanceLPT = new ArrayList<Integer>();
+						ArrayList<Integer> instanceLSA = new ArrayList<Integer>();
+						ArrayList<Integer> listeTachesLSA = new ArrayList<Integer>();
+						ArrayList<Integer> listeTachesLPT = new ArrayList<Integer>();
+
+						//creation de la liste de tache
 						for(int j = 0 ; j < n ; j ++) {
-							listeTaches.add(random.nextInt(dmax-dmin)+dmin);
+							int rand = random.nextInt(dmax-dmin)+dmin ;
+							listeTachesLSA.add(rand);
+							listeTachesLPT.add(rand);
 						}
+						Collections.sort(listeTachesLPT, Collections.reverseOrder());
+						// ajout des machines au sein de l'instance
 						for(int j = 0 ; j < m ; j++ ) {
-							instance.add(0);
+							instanceLSA.add(0);
+							instanceLPT.add(0);
 						}
-						for(int dureeTache : listeTaches) {
-							int index = instance.indexOf(Collections.min(instance));
-							int duree = instance.get(index);
-							duree += dureeTache;
-							instance.set(index, duree);
+						// On place en utilisant le modele LSA
+						for(int j = 0; j < listeTachesLSA.size(); j++) {
+							int indexLSA = instanceLSA.indexOf(Collections.min(instanceLSA));
+							int indexLPT = instanceLPT.indexOf(Collections.min(instanceLPT));
+							int dureeLSA = instanceLSA.get(indexLSA);
+							int dureeLPT = instanceLPT.get(indexLPT);
+							dureeLSA += listeTachesLSA.get(j);
+							dureeLPT += listeTachesLPT.get(j);
+							instanceLPT.set(indexLPT, dureeLPT);
+							instanceLSA.set(indexLSA, dureeLSA);
+							dureetachetotalLSA += listeTachesLSA.get(j);
+							dureetachetotalLPT += listeTachesLPT.get(j);
+
 						}
-						listeInstance.add(instance);
+					
+						valeurmoyenneLPT = dureetachetotalLPT/instanceLPT.size();
+						valeurmoyenneLSA = dureetachetotalLSA/instanceLSA.size();
+						valeurmaxLPT = Collections.max(listeTachesLPT);
+						valeurmaxLSA = Collections.max(listeTachesLSA);
+						B = Math.max(valeurmoyenneLSA,valeurmaxLSA);
+						listeRatioLSA.add(Collections.max(instanceLSA)/B);
+						B=  Math.max(valeurmoyenneLPT,valeurmaxLPT);
+						listeRatioLPT.add(Collections.max(instanceLPT)/B);
+						listeInstanceLSA.add(instanceLSA);
+						listeInstanceLPT.add(instanceLPT);
+
 					}
-					System.out.println(listeInstance);
+					
+					
+					
+					
+					
+					
+					
+					
+					for(double ratio : listeRatioLPT) {
+						
+					}
+					for(double ratio : listeRatioLSA) {
+						
+					}
+					System.out.println(listeInstanceLSA);
+					System.out.println(listeRatioLSA);
+					System.out.println(listeInstanceLPT);
+					System.out.println(listeRatioLPT);
 					
 				}
 				
